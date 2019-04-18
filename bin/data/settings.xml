@@ -6,7 +6,7 @@
 	<color>100, 100, 140, 255</color>
 	<circle_res>5</circle_res>
 	<screen_size>1024x768</screen_size>
-	<strobeSpeed>0.05</strobeSpeed>
-	<color1>140, 15, 20, 255</color1>
-	<color2>99, 140, 92, 255</color2>
+	<strobeSpeed>0.09</strobeSpeed>
+	<color1>215, 255, 221, 249</color1>
+	<color2>140, 13, 10, 255</color2>
 </group>

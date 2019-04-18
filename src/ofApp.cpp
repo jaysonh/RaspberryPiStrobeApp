@@ -8,7 +8,7 @@ void ofApp::setup(){
 	strobeSpeed.addListener(this, &ofApp::strobeSpeedChanged);
 
 	gui.setup(); // most of the time you don't need a name
-	gui.add(strobeSpeed.setup("strobeSpeed", 1.0, 0.0, 2.5));
+	gui.add(strobeSpeed.setup("strobeSpeed", 0.5, 0.0, 1.0));
 	gui.add(color1.setup("color1", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 	gui.add(color2.setup("color2", ofColor(100, 0, 140), ofColor(0, 0), ofColor(255, 255)));
 	
@@ -17,12 +17,14 @@ void ofApp::setup(){
 
 	bHide = true;
 
+	ofHideCursor();
+
 }
 
 
 //--------------------------------------------------------------
 void ofApp::strobeSpeedChanged(float &strobeSpeed){
-	
+	lastStrobe = ofGetElapsedTimef();
 }
 
 
@@ -36,7 +38,7 @@ void ofApp::update()
 	{
 		strobe = !strobe;
 
-		lastStrobe = currTime + (timeDiff - strobeSpeed);
+		lastStrobe = currTime		;
 	}	
 }
 
@@ -49,7 +51,12 @@ void ofApp::draw(){
 		ofSetColor(color2);
 	ofDrawRectangle(0,0,ofGetWidth(),ofGetHeight());
 	if(!bHide){
+		ofShowCursor();
 		gui.draw();
+		
+	}else
+	{
+		ofHideCursor();
 	}
 }
 
