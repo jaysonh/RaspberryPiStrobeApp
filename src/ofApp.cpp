@@ -4,11 +4,7 @@
 void ofApp::setup(){
 	ofSetVerticalSync(true);
 
-	// we add this listener before setting up so the initial circle resolution is correct
-	strobeSpeed.addListener(this, &ofApp::strobeSpeedChanged);
-
 	gui.setup(); // most of the time you don't need a name
-	gui.add(strobeSpeed.setup("strobeSpeed", 0.5, 0.0, 1.0));
 	gui.add(color1.setup("color1", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 	gui.add(color2.setup("color2", ofColor(100, 0, 140), ofColor(0, 0), ofColor(255, 255)));
 	
@@ -22,33 +18,48 @@ void ofApp::setup(){
 }
 
 
-//--------------------------------------------------------------
-void ofApp::strobeSpeedChanged(float &strobeSpeed){
-	lastStrobe = ofGetElapsedTimef();
-}
 
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
 	float currTime = ofGetElapsedTimef();
-	float timeDiff = currTime - lastStrobe;
+	float timeDiff = currTime - lastChange;
 
-	if(timeDiff > strobeSpeed)
+	if(timeDiff > strobeChange)
 	{
-		strobe = !strobe;
+		int randTime = (int)ofRandom(0,4);
+		switch(randTime)
+		{
+			case 0:
+				strobeChange = 5.0;
+				break;
+			case 1:
+				strobeChange = 10.0;
+				break;
+			case 2:
+				strobeChange = 15.0;
+				break;
+			case 3:
+				strobeChange = 25.0;
+				break;
+		}
 
-		lastStrobe = currTime		;
+		strobeRate = ofRandom(5,35);
+		ofSetFrameRate(strobeRate);
+
+		cout << "frameRate: " << strobeRate << " strobe time: " << strobeChange << endl;
 	}	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
+    	cout << "frameRate: " << ofGetFrameRate() << endl;
 	if(strobe)
 		ofSetColor(color1);
 	else
 		ofSetColor(color2);
+
 	ofDrawRectangle(0,0,ofGetWidth(),ofGetHeight());
 	if(!bHide){
 		ofShowCursor();
@@ -58,6 +69,9 @@ void ofApp::draw(){
 	{
 		ofHideCursor();
 	}
+
+	strobe = !strobe;
+
 }
 
 //--------------------------------------------------------------
@@ -69,55 +83,7 @@ void ofApp::keyPressed(int key){
 	
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-	
-}
 
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-	
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-	
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-	
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-	
-}
 
 void ofApp::exit()
 {
