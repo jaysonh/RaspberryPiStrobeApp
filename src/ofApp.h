@@ -16,13 +16,13 @@ public:
 	bool bHide = true;
 
 	ofxColorSlider color1;
-	ofxColorSlider color2;
 	bool strobe=false;
 	ofxPanel gui;
 
 	int   strobeRate   = 5;
 	float strobeChange = 5.0;
 	float lastChange   = 0.0;
+	float timeDiff = 0.0;
 
 };
 

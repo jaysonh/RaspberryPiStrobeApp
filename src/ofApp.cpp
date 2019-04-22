@@ -6,7 +6,6 @@ void ofApp::setup(){
 
 	gui.setup(); // most of the time you don't need a name
 	gui.add(color1.setup("color1", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
-	gui.add(color2.setup("color2", ofColor(100, 0, 140), ofColor(0, 0), ofColor(255, 255)));
 	
 
 	gui.loadFromFile("settings.xml");
@@ -15,6 +14,7 @@ void ofApp::setup(){
 
 	ofHideCursor();
 
+	ofSetFrameRate(strobeRate);
 }
 
 
@@ -24,10 +24,11 @@ void ofApp::setup(){
 void ofApp::update()
 {
 	float currTime = ofGetElapsedTimef();
-	float timeDiff = currTime - lastChange;
+	timeDiff = currTime - lastChange;
 
 	if(timeDiff > strobeChange)
 	{
+		lastChange  = ofGetElapsedTimef();
 		int randTime = (int)ofRandom(0,4);
 		switch(randTime)
 		{
@@ -48,22 +49,26 @@ void ofApp::update()
 		strobeRate = ofRandom(5,35);
 		ofSetFrameRate(strobeRate);
 
-		cout << "frameRate: " << strobeRate << " strobe time: " << strobeChange << endl;
 	}	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    	cout << "frameRate: " << ofGetFrameRate() << endl;
-	if(strobe)
+    	
+if(strobe)
 		ofSetColor(color1);
 	else
-		ofSetColor(color2);
+		ofSetColor(ofColor::black);
 
 	ofDrawRectangle(0,0,ofGetWidth(),ofGetHeight());
-	if(!bHide){
+	if(!bHide)
+	{
 		ofShowCursor();
 		gui.draw();
+
+		ofSetColor(ofColor::white);
+		ofDrawBitmapString("strobeChange: "  + ofToString(timeDiff) + "/" + ofToString(strobeChange), 20,350);
+		ofDrawBitmapString("strobeRate:   "  + ofToString(strobeRate),   20, 375);
 		
 	}else
 	{
