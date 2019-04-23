@@ -4,7 +4,7 @@
 #include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
-	
+		
 public:
 	void setup();
 	void update();
@@ -13,7 +13,7 @@ public:
 	void keyPressed(int key);
 	void exit();
 	
-	bool bHide = true;
+	bool showGUI = false;
 
 	ofxColorSlider color1;
 	bool strobe=false;

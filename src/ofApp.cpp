@@ -10,7 +10,7 @@ void ofApp::setup(){
 
 	gui.loadFromFile("settings.xml");
 
-	bHide = true;
+	showGUI = false;
 
 	ofHideCursor();
 
@@ -55,14 +55,15 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw(){
     	
-if(strobe)
+	if(strobe || showGUI)
 		ofSetColor(color1);
 	else
 		ofSetColor(ofColor::black);
 
 	ofDrawRectangle(0,0,ofGetWidth(),ofGetHeight());
-	if(!bHide)
+	if(showGUI)
 	{
+		ofSetFrameRate(60);
 		ofShowCursor();
 		gui.draw();
 
@@ -72,6 +73,7 @@ if(strobe)
 		
 	}else
 	{
+		ofSetFrameRate(strobeRate);
 		ofHideCursor();
 	}
 
@@ -83,7 +85,7 @@ if(strobe)
 void ofApp::keyPressed(int key){
 	if(key == '\t')
 	{
-		bHide = !bHide;
+		showGUI = !showGUI;
 	}
 	
 }
