@@ -1,3 +1,3 @@
-# Strobing Application for Dominica Hawgood
+# Strobing Application for Dominic Hawgood
 
 
